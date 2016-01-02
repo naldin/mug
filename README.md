@@ -1,9 +1,9 @@
 
-	  README
-	  ======
+    README
+    ======
 	  
-	  Caneca mistura tudo automatica
-	  Codigo para ATtiny13 e ATmega 328p
+    Caneca mistura tudo automatica
+    Codigo para ATtiny13 e ATmega 328p
     Copyright (C) 2015  Ronaldo Rezende Junior (naldin.net at gmail)
 
     This program is free software: you can redistribute it and/or modify
