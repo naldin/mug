@@ -1,0 +1,25 @@
+make flash (no diretório: C:\Users\Ronaldo\Dropbox\Eletronica\AVR\AVR_Prog\mug)
+avr-gcc -mmcu=attiny13 -DF_CPU=1200000UL -DBAUD=9600 -Os -I. -I -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums  -Wall -Wstrict-prototypes -g -ggdb -ffunction-sections -fdata-sections -Wl,--gc-sections -Wl,--relax -std=gnu99 mugTiny13.c     --output mugTiny13.elf
+avr-objcopy -R .eeprom -O ihex mugTiny13.elf mugTiny13.hex
+avrdude -c usbasp -p attiny13 -b 19200 -P /dev/ttyACM0 -U flash:w:mugTiny13.hex
+avrdude: AVR device initialized and ready to accept instructions
+Reading | ################################################## | 100% 0.01s
+avrdude: Device signature = 0x1e9007
+avrdude: NOTE: FLASH memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "mugTiny13.hex"
+avrdude: input file mugTiny13.hex auto detected as Intel Hex
+avrdude: writing flash (534 bytes):
+Writing | ################################################## | 100% 4.75s
+avrdude: 534 bytes of flash written
+avrdude: verifying flash memory against mugTiny13.hex:
+avrdude: load data flash data from input file mugTiny13.hex:
+avrdude: input file mugTiny13.hex auto detected as Intel Hex
+avrdude: input file mugTiny13.hex contains 534 bytes
+avrdude: reading on-chip flash data:
+Reading | ################################################## | 100% 2.31s
+avrdude: verifying ...
+avrdude: 534 bytes of flash verified
+avrdude done.  Thank you.
+Compilação terminada com sucesso.
