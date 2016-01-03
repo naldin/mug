@@ -56,6 +56,16 @@
     - Capacitor 10uF
     - Capacitor de 100nF
     
+    Instruções para compilar e gravar
+    =================================
+    
+    Necessário possuir AVR Toolchain instalado.
+    Para compilar use make dentro do diretorio dos arquivos.
+    Para compilar e já gravar no AVR use make flash.
+    Caso deseje apenas gravar o arquivo HEX no AVR, use:
+    avrdude -c usbasp -p t13 -U flash:w:mugTiny13.hex:i
+    Lembrando de setar a interface correta no lugar de usbasp.
+    
     Instruções de uso
     =================
     
