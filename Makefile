@@ -2,6 +2,8 @@
 ##########------------------------------------------------------##########
 ##########              Project-specific Details                ##########
 ##########    Check these every time you start a new project    ##########
+##########               Book Make: AVR Programming             ##########
+##########    https://github.com/hexagon5un/AVR-Programming     ##########
 ##########------------------------------------------------------##########
 
 #MCU   = atmega328p
