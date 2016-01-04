@@ -79,7 +79,7 @@
     - No próximo clique o motor e led ligam por 2seg e coloca o micro controlador em modo power down (desligado).
     - Mais um clique e o ciclo recomeça.
     
-    Video do funcionamento
+    Vídeo do funcionamento
     ======================
     
     https://www.youtube.com/watch?v=ScmhuLAGeVc
