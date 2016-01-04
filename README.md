@@ -1,7 +1,9 @@
 
-    README
-    ======
-	  
+    #README
+    	
+	Licença
+	=======
+	
     Caneca mistura tudo automatica
     Codigo para ATtiny13 e ATmega 328p
     Copyright (C) 2015  Ronaldo Rezende Junior (naldin.net at gmail)
@@ -26,7 +28,7 @@
     o botão toda hora para misturar o chocolate quente, estava ficando tedioso. Foi então que 
     pensei em usar um micro controlador para comandar o motor automaticamente. Usando um pequeno 
     ATtiny13 SMD que estava parado aqui, um transistor, resistor, led e capacitores de placas 
-    usadas que tenho para retirar componentes, fiz um sistema automático. O funncionamento segue 
+    usadas que tenho para retirar componentes, fiz um sistema automático. O funcionamento segue 
     abaixo nas instruções de uso. O ATtiny usado é um 13A, este A é importante porque sua tensão 
     de trabalho é de 1,8 a 5,5V, como a caneca usa duas pilhas AAA, o ATtiny sem o final A funciona 
     de 2,7V a 5,5V e com a queda de tensão das pilhas pode-ser ter problemas.
@@ -44,12 +46,13 @@
     #define SOMA_TEMPO 137    // Soma x ao tempo entre ligadas. Multiplo de ~1/5 segundo
     
     Já para o led, basta alterar o valor do 2 em “led = led + 2” dentro da função "ajustaTempos()", cada 
-    unidade soma 0,45 segundo conforme setado em OCR0A. Lembrando-se que já começa em 1, portanto no 
-    primeiro ciclo temporizado teremos 3 que multiplicado por 0,45 será 1,35 / 2 = 0,67 segundo que 
-    o led ficará ligado e 0,67 desligado.
+    unidade soma 0,45 segundo conforme setado em OCR0A. Portanto no 
+    primeiro ciclo temporizado teremos 2 que multiplicado por 0,45 será 0,9 / 2 = 0,45 segundo que 
+    o led ficará ligado e 0,45 desligado.
     
     Material necessário
     ===================
+    
     - ATtiny 13 ou ATmega 328p
     - Transistor de uso geral ex BC548
     - Resistor de 1000k ohms
@@ -59,12 +62,12 @@
     Instruções para compilar e gravar
     =================================
     
-    Necessário possuir AVR Toolchain instalado.
+    Necessário possuir AVR Toolchain instalado (avrdude e avr-gcc).
     Para compilar use make dentro do diretorio dos arquivos.
     Para compilar e já gravar no AVR use make flash.
     Caso deseje apenas gravar o arquivo HEX no AVR, use:
     avrdude -c usbasp -p t13 -U flash:w:mugTiny13.hex:i
-    Lembrando de setar a interface correta no lugar de usbasp.
+    Lembrando de setar a interface correta no lugar de usbasp, caso não seja esta.
     
     Instruções de uso
     =================
@@ -75,3 +78,13 @@
     - No próximo clique o led pisca aproximadamente a cada 1,5 segundos e o motor irá ligar a cada 1min e 30seg por 5seg.
     - No próximo clique o motor e led ligam por 2seg e coloca o micro controlador em modo power down (desligado).
     - Mais um clique e o ciclo recomeça.
+    
+    Video
+    =====
+    
+    youtube
+    
+    Blog
+    ====
+    
+    xyz
