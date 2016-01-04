@@ -79,12 +79,12 @@
     - No próximo clique o motor e led ligam por 2seg e coloca o micro controlador em modo power down (desligado).
     - Mais um clique e o ciclo recomeça.
     
-    Video
-    =====
+    Video do funcionamento
+    ======================
     
-    youtube
+    https://www.youtube.com/watch?v=ScmhuLAGeVc
     
     Blog
     ====
     
-    xyz
+    http://xyzturbo.blogspot.com.br/2016/01/caneca-mistura-tudo-automatica.html
