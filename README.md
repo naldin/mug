@@ -1,7 +1,7 @@
 
     #README
     
-    For english README look README_EN.md
+    For english README see README_EN.md
     	
 	Licença
 	=======
