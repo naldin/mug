@@ -1,7 +1,7 @@
 /*
 	Caneca mistura tudo automatica
 	Automatic self stirring mug
-	Codigo para ATtiny13 e ATmega328p
+	Código para ATtiny13 e ATmega328p
 	Code for ATtiny13 and ATmega328p
     Copyright (C) 2015  Ronaldo Rezende Junior (naldin.net at gmail)
 
@@ -17,6 +17,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
  */
 
 // ATMega328p trabalhando em 1Mhz
