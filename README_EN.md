@@ -82,4 +82,8 @@
     Blog
     ====
     
+    Português:
     http://xyzturbo.blogspot.com.br/2016/01/caneca-mistura-tudo-automatica.html
+    
+    English:
+    https://hackaday.io/project/9107-automatic-self-stirring-mug
