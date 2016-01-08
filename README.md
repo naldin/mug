@@ -1,5 +1,7 @@
 
     #README
+    
+    For english README look README_EN.md
     	
 	Licença
 	=======
@@ -55,19 +57,20 @@
     
     - ATtiny 13 ou ATmega 328p
     - Transistor de uso geral ex BC548
-    - Resistor de 1000k ohms
-    - Capacitor 10uF
-    - Capacitor de 100nF
+    - Resistor de 1000 ohms
+    - Capacitor 10uF para o circuito
+    - Capacitor de 100nF para o filtro de ruído do motor
     
     Instruções para compilar e gravar
     =================================
     
-    Necessário possuir AVR Toolchain instalado (avrdude e avr-gcc).
-    Para compilar use make dentro do diretorio dos arquivos.
-    Para compilar e já gravar no AVR use make flash.
+    Necessário possuir AVR Toolchain instalado (avrdude e avr-gcc)
+    Para compilar use make dentro do diretorio dos arquivos
+    Para compilar e já gravar no AVR use make flash
     Caso deseje apenas gravar o arquivo HEX no AVR, use:
     avrdude -c usbasp -p t13 -U flash:w:mugTiny13.hex:i
-    Lembrando de setar a interface correta no lugar de usbasp, caso não seja esta.
+    Lembrando de setar a interface correta no lugar de usbasp, caso não seja esta 
+    e o microcontrolador, neste caso ATtiny13A como t13.
     
     Instruções de uso
     =================

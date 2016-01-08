@@ -1,6 +1,8 @@
 /*
 	Caneca mistura tudo automatica
-	Codigo para ATtiny13 e ATmega 328p
+	Automatic self stirring mug
+	Codigo para ATtiny13 e ATmega328p
+	Code for ATtiny13 and ATmega328p
     Copyright (C) 2015  Ronaldo Rezende Junior (naldin.net at gmail)
 
     This program is free software: you can redistribute it and/or modify
@@ -18,6 +20,7 @@
  */
 
 // ATMega328p trabalhando em 1Mhz
+// ATMega328p working on 1Mhz
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -25,8 +28,9 @@
 #include <avr/power.h>
 #include <avr/sleep.h>
 
-#define MOTOR_ON 300      // Tempo que o motor permanece ligado em ms
+#define MOTOR_ON 300      // Tempo que o motor permanece ligado em ms // Time in ms that motor will be on
 #define SOMA_TEMPO 120    // Soma x ao tempo entre ligadas. Multiplo de ~1/4 segundo
+                          // Add x to time between turn on
 #define TEMPO_DEBOUNCE 10  // Em ms
 #define PORT_DDR DDRB
 #define PORT_EST PORTB
@@ -35,40 +39,43 @@
 #define BOTAO PD2
 
 // Variaveis
-volatile int contLed = 1;    // Contador de tempo do led. Cada ciclo são 1/2 segundo
-volatile int contMotor = 1;  // Contador de tempo do motor. Cada ciclo são 1/2 segundo
-int led = 0;                 // Comparador de tempo do led
-int motor = 0;               // Comparador de tempo do motor
+volatile int contLed = 1;    // Contador de tempo do led. Cada ciclo são 1/2 segundo // Led counter 1/2 sec for DC
+volatile int contMotor = 1;  // Contador de tempo do motor. Cada ciclo são 1/2 segundo // Led counter 1/2 sec for DC
+int led = 0;                 // Comparador de tempo do led // Led time comparator
+int motor = 0;               // Comparador de tempo do motor // Motor time time comparator
 int inicia = 0;              // Usado para no inicio do ciclo deixar o motor sempre ligado
+                             // Used for at the begin of cycle the motor will always on
 
-ISR(TIMER0_COMPA_vect) {     // Interrupção CTC
-	contLed++;               // Somador
-	contMotor++;             // Somador
+ISR(TIMER0_COMPA_vect) {     // Interrupção CTC // CTC interrupt
+	contLed++;               // Somador // Adder
+	contMotor++;             // Somador // Adder
 }
 
-void iniciaTimer(void){
-TCCR0A |= (1 << WGM01);              // Modo CTC
-TCCR0A |= (1 << COM0A0);             // Modo alternado
+void iniciaTimer(void){  // Start Timer
+TCCR0A |= (1 << WGM01);              // Modo CTC // CTC Mode
+TCCR0A |= (1 << COM0A0);             // Modo alternado // Toggle Mode
 TCCR0B |= (1 << CS00) | (1 << CS02); // Prescaler 1024
 TIMSK0 |= (1 << OCIE0A);             // Habilita interrupcao de saida por comparacao (CTC)
+                                     // CTC Interrupt
 }
 
-ISR(INT0_vect) {     // Interrupção de porta
+ISR(INT0_vect) {     // Interrupção de porta // Interrupt port
 // Usado somente para acordar do sleep
+// Used only to wake from sleep
 }
 
-void iniciaPortas(void){
+void iniciaPortas(void){  // Start ports
 	PORT_DDR |= (1 << PORT_LED);    // Porta para Led
 	PORT_DDR |= (1 << PORT_MOTOR);  // Porta para Motor
 	PORTD |= (1 << BOTAO);          // Pull-up no Botao (INT0)
 }
 
-void iniciaInterrupt0(void) {
-  EIMSK |= (1 << INT0);      // Habilita interrupção em INT0
-  sei();                     // Habilita interrupções
+void iniciaInterrupt0(void) { // Start interrupt
+  EIMSK |= (1 << INT0);       // Habilita interrupção em INT0 // Interrupt at INT0
+  sei();                      // Habilita interrupções // Enable interrupts
 }
 
-void modoSleep(void){      // Desliga AVR
+void modoSleep(void){      // Desliga AVR // Turn of AVR
 	PORT_EST |= (1 << PORT_LED);
 	PORT_EST |= (1 << PORT_MOTOR);
 	_delay_ms(2000);
@@ -79,6 +86,7 @@ void modoSleep(void){      // Desliga AVR
 }
 
 void ligaMotor(void){      // Liga motor e led no tempo definido em MOTOR_ON
+                           // Turn on motor and led in defined time in MOTOR_ON
 	PORT_EST |= (1 << PORT_LED);
 	PORT_EST |= (1 << PORT_MOTOR);
 	_delay_ms(MOTOR_ON);
@@ -86,6 +94,7 @@ void ligaMotor(void){      // Liga motor e led no tempo definido em MOTOR_ON
 }
 
 void rodaTempos(void){     // Roda os tempos para led e motor usando contador dentro de interrupção CTC
+                           // Run times for led and motor using counter inside of CTC interrupt
 	if (contLed == led){
 		PORT_EST ^= (1 << PORT_LED);
 		contLed = 0;
@@ -98,21 +107,22 @@ void rodaTempos(void){     // Roda os tempos para led e motor usando contador de
 }
 
 void ajustaTempos(void){    // Altera os tempos do led e motor pelo botao
+                            // Modify times of led and motor through buttom
 	if (bit_is_clear(PIND,BOTAO)){
 		_delay_ms(TEMPO_DEBOUNCE);       // Usado para Debounce
 		if (bit_is_set(PIND,BOTAO)) {   // Usado para Debounce
-			if (inicia == 0){           // Inicializa com led e motor ligados
+			if (inicia == 0){           // Inicializa com led e motor ligados // Start with led and motor on
 				PORT_EST |= (1 << PORT_LED);
 				PORT_EST |= (1 << PORT_MOTOR);
 				inicia = 1;
 			}
-			else {                    // Soma o tempo a cada apertada do botao
+			else {                    // Soma o tempo a cada apertada do botao // Add time every pressed buttom
 				PORT_EST &= ~(1 << PORT_MOTOR);
 				led = led + 2;
 				motor = motor + SOMA_TEMPO;
 				contLed = 0;
 				contMotor = 0;
-				if (led == 8){        // Tres tempos até entrar novamente no modo sleep
+				if (led == 8){        // Tres tempos até entrar novamente no modo sleep // Three times until get loop again
 					led = 0;
 					contLed = 0;
 					motor = 0;
@@ -132,7 +142,7 @@ int main (void){
 	modoSleep();
 	
 	while(1){
-		OCR0A = 243;   // Ajusta timer para ciclo de ~1/2 segundo
+		OCR0A = 243;   // Ajusta timer para ciclo de ~1/2 segundo // // Cycle of ~1/2 second
 		rodaTempos();
 		ajustaTempos();	
 	}
