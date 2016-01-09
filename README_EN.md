@@ -29,7 +29,7 @@
     motor turn on through a buttom. It works well, but push the buttom every 
     time to mix the hot chocolate was so boring. Then I thought use a 
     microcontroller to control the motor. Using an small ATtiny13A SMD, a 
-    trasistor, resistor led and capacitor I made an automatic system for this mug. 
+    transistor, resistor led and capacitor I made an automatic system for this mug. 
     Do you can see how it works below. The ATtiny used is a 13A, it is important 
     because the working voltage is between 1.8V and 5.5V, as the mug use two AAA 
     battery and the ATtiny without "A" works between 2.7V and 5.5V, with the drop 
